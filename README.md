@@ -65,8 +65,8 @@ The `requirements.txt` file was generated with `pipreqs`. I don't use `pip freez
 
 ## To run this project locally:
 1. Configure your AWS Credentials to access your S3 Bucket.
-You must have a AWS Account, because de output of the spider is a s3 bucket. If you have, you can set your credentions on path `/home/<YOUR-USER>/.credentials/main.json`.
-The `main.json` file is:
+You must have a AWS Account, because de output of the spider is a s3 bucket. If you have, you can set your credentions on path `/news-crawler/news/credentials.json`.
+The `credentials.json` file is:
 ```python
 {
     "AWS": {
@@ -77,6 +77,8 @@ The `main.json` file is:
     }
 }
 ```
+**IMPORTANT**
+This is not the best way to manage credentials on production environments. It's just for tests and studies purpose. Never keep credentials on the middle of the code or in your repository! That's why the `credentials.json` file it's in `.gitignore`.
 
 2. On the spider code the `URI` is set, you can change for your environment:
 `BASE_URI = f"s3://da-vinci-raw/crawler-news/gazeta-do-povo/run={DATE}/"`

@@ -4,7 +4,8 @@ import json
 from pathlib import Path
 from random import choice
 
-CREDENTIALS_PATH = Path.home() / ".credentials" / "main.json"
+PROJECT_BASE_PATH = Path(__file__).resolve().parents[1]
+CREDENTIALS_PATH = PROJECT_BASE_PATH / "credentials.json"
 with open(CREDENTIALS_PATH, mode="r") as file_obj:
     CREDENTIALS = json.load(file_obj)['AWS']['app-crawler-mogiz7']
 
