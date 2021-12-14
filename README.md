@@ -7,7 +7,8 @@ This project extract textual data relating to news. The output of this crawler i
 
 On the `settings.py` file we have the AWS credentials configs:
 ```python
-CREDENTIALS_PATH = Path.home() / ".credentials" / "main.json"
+PROJECT_BASE_PATH = Path(__file__).resolve().parents[1]
+CREDENTIALS_PATH = PROJECT_BASE_PATH / "credentials.json"
 with open(CREDENTIALS_PATH, mode="r") as file_obj:
     CREDENTIALS = json.load(file_obj)['AWS']['app-crawler-mogiz7']
 
@@ -81,10 +82,10 @@ The `credentials.json` file is:
 This is not the best way to manage credentials on production environments. It's just for tests and studies purpose. Never keep credentials on the middle of the code or in your repository! That's why the `credentials.json` file it's in `.gitignore`.
 
 2. On the spider code the `URI` is set, you can change for your environment:
-`BASE_URI = f"s3://da-vinci-raw/crawler-news/gazeta-do-povo/run={DATE}/"`
+- `BASE_URI = f"s3://da-vinci-raw/crawler-news/gazeta-do-povo/run={DATE}/"`
 
 3. Enter on the `Dockerfile` (`news-crawler/news`) directory and build the image:
-`docker build -t news-crawler .`
+- `docker build -t news-crawler .`
 
 4. Run the spider:
-`sudo docker run news-crawler`
+- `sudo docker run news-crawler`
