@@ -1,16 +1,12 @@
 import re
 import json
-from datetime import datetime
+from datetime import date, datetime
 
 from scrapy.spiders import SitemapSpider
 
-DATETIME = datetime.now()
-YEAR = DATETIME.strftime('%Y')
-MONTH = DATETIME.strftime('%Y%m')
-DATE = DATETIME.strftime('%Y%m%d')
-
-BASE_URI = f"s3://datalake00/raw/crawler-news/{YEAR}/{MONTH}/{DATE}/"
-
+DATE = date.today()
+BASE_URI = f"s3://da-vinci-raw/crawler-news/gazeta-do-povo/run={DATE}/"
+SOURCE = "GAZETA DO POVO"
 
 class GazetaDoPovoSpider(SitemapSpider):
     name = "gazeta_do_povo"
@@ -76,7 +72,7 @@ class GazetaDoPovoSpider(SitemapSpider):
             "content": content,
             "author": author,
             "title": title,
-            "source": "GAZETA DO POVO",
+            "source": SOURCE,
             "url": response.url,
             "created_at": datetime.now()
         }
