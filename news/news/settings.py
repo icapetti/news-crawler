@@ -1,13 +1,17 @@
 # Scrapy settings for news project
 
 import json
+import os
 from pathlib import Path
 from random import choice
+from dotenv import load_dotenv
+
+# Loads variables on the .env file to the local environment variables
+# Add your aws credentials on the .env file
+user = os.environ.get("USER") if os.environ.get("USER") else os.environ.get("USERNAME")
+load_dotenv(f'/home/{user}/.credentials/.env')
 
 PROJECT_BASE_PATH = Path(__file__).resolve().parents[1]
-CREDENTIALS_PATH = PROJECT_BASE_PATH / "credentials.json"
-with open(CREDENTIALS_PATH, mode="r") as file_obj:
-    CREDENTIALS = json.load(file_obj)['AWS']['app-crawler-mogiz7']
 
 BOT_NAME = 'news'
 
@@ -19,8 +23,8 @@ LOG_ENABLED = True
 LOG_LEVEL = 'INFO'
 
 # CREDENTIALS FOR S3
-AWS_ACCESS_KEY_ID = CREDENTIALS['aws_access_key_id']
-AWS_SECRET_ACCESS_KEY = CREDENTIALS['aws_secret_access_key']
+AWS_ACCESS_KEY_ID = os.getenv("aws_id")
+AWS_SECRET_ACCESS_KEY = os.getenv("aws_secret")
 
 # FEED compressed jsonlines
 FEED_EXPORTERS = {
@@ -45,6 +49,7 @@ DOWNLOAD_DELAY = 0.3
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'news.pipelines.S3Pipeline': 300,
+   'news.pipelines.ScreenshotPipeline': 400,
 }
 
 USER_AGENT = choice([
